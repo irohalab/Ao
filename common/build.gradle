@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.sqrtf.common'
-    compileSdk 35
+    compileSdk 36
 //    buildToolsVersion '26.0.2'
 
     compileOptions {
@@ -22,7 +22,7 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -67,7 +67,7 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+    implementation 'androidx.media3:media3-exoplayer:1.11.0'
 //    compile 'com.google.android.exoplayer:exoplayer-ui:r2.4.1'
 //    compile 'com.google.android.exoplayer:exoplayer:r2.4.1'
 }

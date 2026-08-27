@@ -14,10 +14,11 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSource
+import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.extractor.DefaultExtractorsFactory
 import com.sqrtf.common.activity.BaseActivity
 import com.sqrtf.common.api.ApiHelper
 import com.sqrtf.common.player.MeguminExoPlayer
@@ -26,6 +27,7 @@ import com.sqrtf.common.view.FastForwardBar
 import kotlin.math.min
 
 
+@androidx.annotation.OptIn(UnstableApi::class)
 class PlayerActivity : BaseActivity() {
     val playerController by lazy { findViewById<View>(R.id.play_controller) }
     val playerView by lazy { findViewById<MeguminExoPlayer>(R.id.player_content) }

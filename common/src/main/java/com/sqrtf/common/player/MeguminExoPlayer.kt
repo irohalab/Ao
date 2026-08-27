@@ -9,11 +9,12 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.video.VideoSize
+import androidx.media3.common.Player
+import androidx.media3.common.VideoSize
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
 import com.sqrtf.common.R
 import com.sqrtf.common.StringUtil
 import com.sqrtf.common.view.CheckableImageButton
@@ -24,6 +25,7 @@ import kotlin.properties.Delegates
  * Created by roya on 2017/8/1.
  */
 
+@androidx.annotation.OptIn(UnstableApi::class)
 class MeguminExoPlayer : FrameLayout {
 
     val contentFrame by lazy { findViewById<AspectRatioFrameLayout>(R.id.arfl) }
@@ -78,7 +80,8 @@ class MeguminExoPlayer : FrameLayout {
     }
 
     fun setSource(source: MediaSource) {
-        player.prepare(source)
+        player.setMediaSource(source)
+        player.prepare()
     }
 
     fun setPlayWhenReady(playWhenReady: Boolean) {
