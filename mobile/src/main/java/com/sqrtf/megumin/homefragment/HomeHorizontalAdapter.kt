@@ -1,6 +1,6 @@
 package com.sqrtf.megumin.homefragment
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
@@ -22,7 +22,6 @@ open class HomeHorizontalAdapter(private var datas: HomeData,
 
         holder.title.text = StringUtil.mainTitle(bangumi)
         holder.subtitle?.text = StringUtil.subTitle(bangumi)
-        holder.time?.text = bangumi.air_date
         holder.new?.text = holder.itemView.resources.getString(R.string.unwatched).format(bangumi.unwatched_count)
         holder.eps?.text = holder.itemView.resources.getString(R.string.eps_all).format(bangumi.eps)
 

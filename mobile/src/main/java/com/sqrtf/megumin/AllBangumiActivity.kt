@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.AppCompatSpinner
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -159,12 +159,12 @@ class AllBangumiActivity : BaseThemeActivity() {
 
     private class PaddingItemDecoration : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            val position = parent!!.getChildAdapterPosition(view)
-            val childCount = state!!.itemCount
+            val position = parent.getChildAdapterPosition(view)
+            val childCount = state.itemCount
             if (position == 0) {
-                outRect?.top = outRect?.top?.plus(view!!.resources.getDimensionPixelSize(R.dimen.spacing_list))
+                outRect.top += view.resources.getDimensionPixelSize(R.dimen.spacing_list)
             } else if (position + 1 == childCount) {
-                outRect?.bottom = outRect?.bottom?.plus(view!!.resources.getDimensionPixelSize(R.dimen.spacing_list_bottom))
+                outRect.bottom += view.resources.getDimensionPixelSize(R.dimen.spacing_list_bottom)
             }
         }
     }

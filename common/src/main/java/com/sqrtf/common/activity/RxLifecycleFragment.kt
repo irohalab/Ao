@@ -1,10 +1,11 @@
 package com.sqrtf.common.activity
 
 
+import android.content.Context
 import android.os.Bundle
-import android.support.annotation.CheckResult
-import android.support.annotation.Nullable
-import android.support.v4.app.Fragment
+import androidx.annotation.CheckResult
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import android.view.View
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.LifecycleTransformer
@@ -33,8 +34,8 @@ open class RxLifecycleFragment : Fragment(), LifecycleProvider<FragmentEvent> {
         return RxLifecycleAndroid.bindFragment<T>(lifecycleSubject)
     }
 
-    override fun onAttach(activity: android.app.Activity?) {
-        super.onAttach(activity)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         lifecycleSubject.onNext(FragmentEvent.ATTACH)
     }
 

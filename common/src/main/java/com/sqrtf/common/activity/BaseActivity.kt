@@ -44,7 +44,7 @@ open class BaseActivity : RxLifecycleActivity() {
                 .compose(bindUntilEvent(untilEvent))
     }
 
-    protected fun <T> Observable<T>.onlyRunOneInstance(taskId: Int, displace: Boolean = true): Observable<T> {
+    protected fun <T : Any> Observable<T>.onlyRunOneInstance(taskId: Int, displace: Boolean = true): Observable<T> {
         if (runningMap.containsKey(taskId)) {
             if (!displace) {
                 return Observable.create<T> { wrapper -> wrapper.onComplete() }

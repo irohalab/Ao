@@ -9,15 +9,11 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.exoplayer2.ExoPlayerFactory
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.trackselection.TrackSelection
-import com.google.android.exoplayer2.trackselection.TrackSelector
-import com.google.android.exoplayer2.upstream.BandwidthMeter
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
+import com.google.android.exoplayer2.video.VideoSize
 import com.sqrtf.common.R
 import com.sqrtf.common.StringUtil
 import com.sqrtf.common.view.CheckableImageButton
@@ -33,10 +29,12 @@ class MeguminExoPlayer : FrameLayout {
     val contentFrame by lazy { findViewById<AspectRatioFrameLayout>(R.id.arfl) }
     val surfaceView by lazy { findViewById<SurfaceView>(R.id.surface_view) }
 
-    val bandwidthMeter: BandwidthMeter = DefaultBandwidthMeter()
-    val videoTrackSelectionFactory: TrackSelection.Factory = AdaptiveTrackSelection.Factory(bandwidthMeter)
-    val trackSelector: TrackSelector = DefaultTrackSelector(videoTrackSelectionFactory)
-    val player: SimpleExoPlayer by lazy { ExoPlayerFactory.newSimpleInstance(context, trackSelector) }
+    private val trackSelector by lazy { DefaultTrackSelector(context) }
+    val player: ExoPlayer by lazy {
+        ExoPlayer.Builder(context)
+                .setTrackSelector(trackSelector)
+                .build()
+    }
 
     var progress: SeekBar? = null
     var position: TextView? = null
@@ -55,13 +53,15 @@ class MeguminExoPlayer : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         LayoutInflater.from(context).inflate(R.layout.megumin_exo_player_view, this)
-        player.setVideoListener(videoListener)
+        player.addListener(videoListener)
         player.setVideoSurfaceView(surfaceView)
     }
 
-    val videoListener = object : SimpleExoPlayer.VideoListener {
-        override fun onVideoSizeChanged(width: Int, height: Int, unappliedRotationDegrees: Int, pixelWidthHeightRatio: Float) {
-            contentFrame.setAspectRatio(width.toFloat() / height)
+    val videoListener = object : Player.Listener {
+        override fun onVideoSizeChanged(videoSize: VideoSize) {
+            if (videoSize.height > 0) {
+                contentFrame.setAspectRatio(videoSize.width.toFloat() / videoSize.height)
+            }
         }
 
         override fun onRenderedFirstFrame() {

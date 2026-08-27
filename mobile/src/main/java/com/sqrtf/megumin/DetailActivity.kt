@@ -10,10 +10,10 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
-import android.support.v7.graphics.Palette
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
+import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -204,8 +204,8 @@ class DetailActivity : BaseThemeActivity() {
         if (requestCode == DetailActivity.REQUEST_CODE
                 && resultCode == Activity.RESULT_OK
                 && data != null) {
-            val id = data.getStringExtra(PlayerActivity.RESULT_KEY_ID)
-            val bgmId = data.getStringExtra(PlayerActivity.RESULT_KEY_ID_2)
+            val id = data.getStringExtra(PlayerActivity.RESULT_KEY_ID) ?: return
+            val bgmId = data.getStringExtra(PlayerActivity.RESULT_KEY_ID_2) ?: return
             val duration = data.getLongExtra(PlayerActivity.RESULT_KEY_DURATION, 0)
             val position = data.getLongExtra(PlayerActivity.RESULT_KEY_POSITION, 0)
             ApiClient.getInstance().uploadWatchHistory(

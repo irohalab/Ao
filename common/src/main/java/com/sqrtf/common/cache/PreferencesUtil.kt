@@ -43,7 +43,7 @@ class PreferencesUtil private constructor(context: Context) {
     }
 
     fun getString(k: String, defValue: String): String {
-        return preferences.getString(k, defValue)
+        return preferences.getString(k, defValue) ?: defValue
     }
 
     fun putBoolean(k: String, v: Boolean) {
@@ -93,7 +93,7 @@ class PreferencesUtil private constructor(context: Context) {
     }
 
     companion object {
-        private val TAG_KEY = BuildConfig.APPLICATION_ID
+        private val TAG_KEY = BuildConfig.LIBRARY_PACKAGE_NAME
         private var mInstance: PreferencesUtil? = null
 
         fun init(context: Context) {

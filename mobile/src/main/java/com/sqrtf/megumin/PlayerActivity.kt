@@ -14,10 +14,10 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.util.Util
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultDataSource
 import com.sqrtf.common.activity.BaseActivity
 import com.sqrtf.common.api.ApiHelper
 import com.sqrtf.common.player.MeguminExoPlayer
@@ -116,9 +116,9 @@ class PlayerActivity : BaseActivity() {
         })
 
 
-        val dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, BuildConfig.APPLICATION_ID))
-        val extractorsFactory = DefaultExtractorsFactory()
-        val videoSource = ExtractorMediaSource(Uri.parse(fixedUrl), dataSourceFactory, extractorsFactory, null, null)
+        val dataSourceFactory = DefaultDataSource.Factory(this)
+        val videoSource = ProgressiveMediaSource.Factory(dataSourceFactory, DefaultExtractorsFactory())
+            .createMediaSource(MediaItem.fromUri(fixedUrl))
 
         playerView.setSource(videoSource)
 

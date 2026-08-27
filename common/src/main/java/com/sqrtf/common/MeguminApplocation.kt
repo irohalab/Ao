@@ -26,9 +26,10 @@ class MeguminApplocation : Application() {
         fun logout(context: Context) {
             PreferencesUtil.getInstance().clear()
             ApiClient.deinit()
-            val i = context.applicationContext.packageManager.getLaunchIntentForPackage(context.applicationContext.packageName)
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            context.startActivity(i)
+            val launchIntent = context.applicationContext.packageManager
+                    .getLaunchIntentForPackage(context.applicationContext.packageName) ?: return
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            context.startActivity(launchIntent)
         }
     }
 }

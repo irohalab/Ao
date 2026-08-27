@@ -8,6 +8,11 @@ Designed to browse and play bangumi on Albireo server, so it does not support so
 
 ## Build
 
-Android Studio 3.0 Canary 3 (or newer)
+- JDK 17
+- Android SDK Platform 35
 
-JDK7
+Set `JAVA_HOME` to the JDK 17 installation, then build with the Gradle wrapper:
+
+```powershell
+.\gradlew.bat :mobile:assembleDebug
+```
